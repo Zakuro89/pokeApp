@@ -48,58 +48,6 @@ async function getPokemonDetails() {
       <li><strong>Vitesse:</strong> ${pokemon.stats[5].base_stat}</li>
     </ul>
     `;
-
-  const randomMoves = getRandomMoves(pokemon.moves, 4);
-
-  displayMoves(randomMoves);
 }
-
-function getRandomMoves(moves, numberOfMoves) {
-  const randomMoves = [];
-  while (randomMoves.length < numberOfMoves) {
-    const randomIndex = Math.floor(Math.random() * moves.length);
-    const move = moves[randomIndex];
-
-    if (!randomMoves.includes(move)) {
-      randomMoves.push(move);
-    }
-  }
-  return randomMoves;
-}
-
-async function displayMoves(moves) {
-  pokemonMoves.innerHTML = "";
-
-  for (const move of moves) {
-    const moveDetails = await fetchMoveDetails(move.move.url);
-    const moveElement = document.createElement("div");
-    moveElement.classList.add("move-card");
-
-    const frenchMove = moveDetails.names.find(
-      (name) => name.language.name === "fr"
-    );
-
-    moveElement.innerHTML = `
-      <h4>${frenchMove ? frenchMove.name : moveDetails.name}</h4>
-      <p><strong>Puissance:</strong> ${moveDetails.power || "N/A"}</p>
-      <p><strong>Précision:</strong> ${moveDetails.accuracy || "N/A"}</p>
-      <p><strong>Type:</strong> ${moveDetails.type.name}</p>
-            `;
-
-    pokemonMoves.appendChild(moveElement);
-  }
-}
-
-async function fetchMoveDetails(moveUrl) {
-  const response = await fetch(moveUrl);
-  return await response.json();
-}
-
-const battleButton = document.getElementById("battle-button");
-const pokemonId = getPokemonIdFromUrl();
-
-battleButton.addEventListener("click", () => {
-  window.location.href = `pokemon-battle.html?pokemon1=${pokemonId}`;
-});
 
 getPokemonDetails();

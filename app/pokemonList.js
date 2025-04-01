@@ -27,9 +27,7 @@ async function fetchPokemonData() {
     pokemons.push({
       id: pokemonData.id,
       name: frenchName,
-      image: shinyMode
-        ? pokemonData.sprites.front_shiny
-        : pokemonData.sprites.front_default,
+      image: pokemonData.sprites.front_default,
       types: types,
     });
   }

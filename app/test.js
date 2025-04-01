@@ -85,3 +85,103 @@ function createPokemonCard(pokemon, side) {
 }
 
 displayPokemon();
+
+async function createPokemonCard(pokemon, side) {
+  const card = document.createElement("div");
+  card.classList.add("pokemon-battle-card", side);
+
+  const nameDatas = await fetch(pokemon.species.url);
+  const nameResults = await nameDatas.json();
+
+  const frenchName =
+    nameResults.names.find((name) => name.language.name === "fr")?.name ||
+    pokemon.name;
+
+  card.innerHTML = `
+    <h2>${frenchName.toUpperCase()}</h2>
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    <div class="battle-stats">
+      <p><strong>PV:</strong> ${pokemon.stats[0].base_stat}</p>
+      <p><strong>Attaque:</strong> ${pokemon.stats[1].base_stat}</p>
+      <p><strong>Défense:</strong> ${pokemon.stats[2].base_stat}</p>
+      <p><strong>Vitesse:</strong> ${pokemon.stats[5].base_stat}</p>
+    </div>
+  `;
+
+  cardsContainer.appendChild(card);
+
+  console.log("Pokémon ajouté:", pokemon);
+
+  const randomMoves = getRandomMoves(pokemon.moves, 4);
+  await displayMoves(randomMoves, card); // On passe la carte en argument
+}
+
+async function displayMoves(moves, card) {
+  console.log("Affichage des attaques...");
+
+  const moveContainer = document.createElement("div");
+  moveContainer.classList.add("pokemon-moves");
+
+  for (const move of moves) {
+    const moveDetails = await fetchMoveDetails(move.move.url);
+    const moveElement = document.createElement("div");
+    moveElement.classList.add("move-card");
+
+    const frenchMove = moveDetails.names.find(
+      (name) => name.language.name === "fr"
+    );
+
+    moveElement.innerHTML = `
+      <h4>${frenchMove ? frenchMove.name : moveDetails.name}</h4>
+      <p><strong>Puissance:</strong> ${moveDetails.power || "N/A"}</p>
+      <p><strong>Précision:</strong> ${moveDetails.accuracy || "N/A"}</p>
+      <p><strong>Type:</strong> ${moveDetails.type.name}</p>
+    `;
+
+    moveContainer.appendChild(moveElement);
+  }
+
+  card.appendChild(moveContainer); // On ajoute le conteneur des attaques à la carte du Pokémon
+}
+
+async function createPokemonCard(pokemon, side) {
+  const cardContainer = document.createElement("div");
+  cardContainer.classList.add("pokemon-container", side);
+
+  const card = document.createElement("div");
+  card.classList.add("pokemon-battle-card");
+
+  const nameDatas = await fetch(pokemon.species.url);
+  const nameResults = await nameDatas.json();
+
+  const frenchName =
+    nameResults.names.find((name) => name.language.name === "fr")?.name ||
+    pokemon.name;
+
+  card.innerHTML = `
+    <h2>${frenchName.toUpperCase()}</h2>
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    <div class="battle-stats">
+      <p><strong>PV:</strong> ${pokemon.stats[0].base_stat}</p>
+      <p><strong>Attaque:</strong> ${pokemon.stats[1].base_stat}</p>
+      <p><strong>Défense:</strong> ${pokemon.stats[2].base_stat}</p>
+      <p><strong>Vitesse:</strong> ${pokemon.stats[5].base_stat}</p>
+    </div>
+  `;
+
+  const attackCard = document.createElement("div");
+  attackCard.classList.add("pokemon-move-card");
+
+  const randomMoves = getRandomMoves(pokemon.moves, 4);
+  await displayMoves(randomMoves, attackCard);
+
+  if (side === "left") {
+    cardContainer.appendChild(attackCard); // Attaques à gauche
+    cardContainer.appendChild(card);
+  } else {
+    cardContainer.appendChild(card);
+    cardContainer.appendChild(attackCard); // Attaques à droite
+  }
+
+  cardsContainer.appendChild(cardContainer);
+}

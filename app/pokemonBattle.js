@@ -80,12 +80,22 @@ async function displayBattle() {
   }
 }
 
-function createPokemonCard(pokemon, side) {
+async function createPokemonCard(pokemon, side) {
+  const cardContainer = document.createElement("div");
+  cardContainer.classList.add("pokemon-container", side);
+
   const card = document.createElement("div");
   card.classList.add("pokemon-battle-card", side);
 
+  const nameDatas = await fetch(pokemon.species.url);
+  const nameResults = await nameDatas.json();
+
+  const frenchName =
+    nameResults.names.find((name) => name.language.name === "fr")?.name ||
+    pokemon.name;
+
   card.innerHTML = `
-    <h2>${pokemon.name.toUpperCase()}</h2>
+    <h2>${frenchName.toUpperCase()}</h2>
     <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
     <div class="battle-stats">
       <p><strong>PV:</strong> ${pokemon.stats[0].base_stat}</p>
@@ -96,4 +106,65 @@ function createPokemonCard(pokemon, side) {
   `;
 
   cardsContainer.appendChild(card);
+
+  console.log(pokemon);
+
+  const randomMoves = getRandomMoves(pokemon.moves, 4);
+
+  await displayMoves(randomMoves, frenchName.toUpperCase(), side);
+}
+
+async function displayMoves(moves, pokemonName, side) {
+  const container = document.getElementById(
+    side === "left" ? "left-attack-table" : "right-attack-table"
+  );
+
+  container.innerHTML = "";
+
+  const title = document.createElement("h3");
+  title.textContent = `Attaques de ${pokemonName}`;
+  container.appendChild(title);
+
+  for (const move of moves) {
+    const moveDetails = await fetchMoveDetails(move.move.url);
+    const moveElement = document.createElement("div");
+    moveElement.classList.add("move");
+
+    const frenchMove = moveDetails.names.find(
+      (name) => name.language.name === "fr"
+    );
+
+    moveElement.innerHTML = `
+      <strong>${frenchMove ? frenchMove.name : moveDetails.name}</strong> 
+      <br>Puissance: ${moveDetails.power || "N/A"} 
+      <br>Précision: ${moveDetails.accuracy || "N/A"} 
+      <br>Type: ${moveDetails.type.name}
+    `;
+
+    container.appendChild(moveElement);
+  }
+}
+
+function getRandomMoves(moves, numberOfMoves) {
+  const randomMoves = [];
+  while (randomMoves.length < numberOfMoves) {
+    const randomIndex = Math.floor(Math.random() * moves.length);
+    const move = moves[randomIndex];
+
+    if (!randomMoves.includes(move)) {
+      randomMoves.push(move);
+    }
+  }
+  return randomMoves;
+}
+
+async function fetchMoveDetails(moveUrl) {
+  const response = await fetch(moveUrl);
+  return await response.json();
+}
+
+function startBattle() {
+  console.log(
+    "Faire système de combat avec choix d'attaque... pas eu le temps d'implémenter la méthode..."
+  );
 }
