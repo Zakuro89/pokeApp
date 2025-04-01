@@ -111,9 +111,23 @@ footer {
   margin-bottom: 20px;
 }
 
+#back-button {
+  padding: 10px 20px;
+  background-color: #f47c7c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+#back-button:hover {
+  background-color: #ff4b4b;
+}
+
 #shiny-mode {
-  left: 20px;
-  top: 20px;
   padding: 10px 15px;
   font-size: 1.2em;
   background-color: black;
@@ -122,9 +136,12 @@ footer {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s;
-  display: flex;
-  justify-content: flex-end;
+  display: inline-block;
   margin-left: 20px;
+  width: auto;
+  text-align: center;
+  max-width: 200px;
+  margin: 10px auto;
 }
 
 #shiny-mode:hover {
