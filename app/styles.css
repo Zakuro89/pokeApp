@@ -112,19 +112,20 @@ footer {
 }
 
 #back-button {
+  display: block;
+  margin: 20px auto;
   padding: 10px 20px;
-  background-color: #f47c7c;
+  font-size: 1.2em;
+  background-color: #ff3e3e;
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 1.2em;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s;
+  transition: background 0.3s;
 }
 
 #back-button:hover {
-  background-color: #ff4b4b;
+  background-color: goldenrod;
 }
 
 #shiny-mode {
