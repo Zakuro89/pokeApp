@@ -107,8 +107,6 @@ async function createPokemonCard(pokemon, side) {
 
   cardsContainer.appendChild(card);
 
-  console.log(pokemon);
-
   const randomMoves = getRandomMoves(pokemon.moves, 4);
 
   await displayMoves(randomMoves, frenchName.toUpperCase(), side);
@@ -161,10 +159,4 @@ function getRandomMoves(moves, numberOfMoves) {
 async function fetchMoveDetails(moveUrl) {
   const response = await fetch(moveUrl);
   return await response.json();
-}
-
-function startBattle() {
-  console.log(
-    "Faire système de combat avec choix d'attaque... pas eu le temps d'implémenter la méthode..."
-  );
 }

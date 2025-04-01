@@ -48,12 +48,6 @@ function toggleShinyMode() {
       : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`;
   }
 
-  if (shinyMode) {
-    console.log("ON");
-  } else {
-    console.log("OFF");
-  }
-
   displayPokemon(pokemons);
 }
 
@@ -85,8 +79,6 @@ async function loadTypeFilter() {
   const types = data.results
     .map((type) => type.name)
     .filter((typeName) => typeName !== "unknown");
-
-  console.log(types);
 
   for (let type of types) {
     const option = document.createElement("option");
