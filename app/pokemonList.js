@@ -1,6 +1,9 @@
 const pokedex = document.getElementById("pokedex");
-const typeFilter = document.getElementById("typeFilter");
+const typeFilter = document.getElementById("type-filter");
 let pokemons = [];
+let shinyMode = false;
+
+const shinyButton = document.getElementById("shiny-mode");
 
 async function fetchPokemonData() {
   const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
@@ -24,15 +27,39 @@ async function fetchPokemonData() {
     pokemons.push({
       id: pokemonData.id,
       name: frenchName,
-      image: pokemonData.sprites.front_default,
+      image: shinyMode
+        ? pokemonData.sprites.front_shiny
+        : pokemonData.sprites.front_default,
       types: types,
     });
   }
 
   loadTypeFilter();
+  displayPokemon(pokemons);
+}
+
+function toggleShinyMode() {
+  shinyMode = !shinyMode;
+
+  document.body.classList.toggle("shiny-mode-active", shinyMode);
+  document.body.style.backgroundColor = shinyMode ? "#fff8dc" : "#606060";
+
+  for (let pokemon of pokemons) {
+    pokemon.image = shinyMode
+      ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokemon.id}.png`
+      : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`;
+  }
+
+  if (shinyMode) {
+    console.log("ON");
+  } else {
+    console.log("OFF");
+  }
 
   displayPokemon(pokemons);
 }
+
+shinyButton.addEventListener("click", toggleShinyMode);
 
 function displayPokemon(pokemons) {
   pokedex.innerHTML = "";

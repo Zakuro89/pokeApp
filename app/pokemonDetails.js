@@ -95,7 +95,7 @@ async function fetchMoveDetails(moveUrl) {
   return await response.json();
 }
 
-const battleButton = document.getElementById("battleButton");
+const battleButton = document.getElementById("battle-button");
 const pokemonId = getPokemonIdFromUrl();
 
 battleButton.addEventListener("click", () => {

@@ -7,7 +7,7 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f8f9fa;
+  background-color: #606060;
   margin: 0;
 }
 
@@ -29,6 +29,46 @@ footer {
   width: 100%;
   position: relative;
 }
+
+.shiny-mode-active header {
+  background-color: #ff69b4;
+}
+
+.shiny-mode-active body {
+  background-color: #fff8dc;
+}
+
+.shiny-mode-active #battle-button {
+  background-color: #ff69b4;
+  color: gold;
+}
+
+.shiny-mode-active #battle-button:hover {
+  background-color: #d84792;
+}
+
+.shiny-mode-active #shiny-mode {
+  background-color: rgb(249, 204, 238);
+  color: black;
+  border-color: black;
+}
+
+.shiny-mode-active #shiny-mode:hover {
+  background-color: black;
+  color: gold;
+}
+
+.shiny-mode-active #type-filter {
+  background-color: gold;
+  color: black;
+  border: 2px solid #ff69b4;
+}
+
+.shiny-mode-active #type-filter:hover {
+  background-color: #ff69b4;
+  color: white;
+}
+
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -63,6 +103,27 @@ footer {
   margin-bottom: 20px;
 }
 
+#shiny-mode {
+  left: 20px;
+  top: 20px;
+  padding: 10px 15px;
+  font-size: 1.2em;
+  background-color: black;
+  color: gold;
+  border: 2px solid gold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 20px;
+}
+
+#shiny-mode:hover {
+  background-color: gold;
+  color: black;
+}
+
 .filter-container {
   display: flex;
   justify-content: flex-end;
@@ -70,7 +131,7 @@ footer {
   align-items: center;
 }
 
-#typeFilter {
+#type-filter {
   background-color: black;
   color: white;
   border: 2px solid red;
@@ -81,17 +142,17 @@ footer {
   transition: 0.3s;
 }
 
-#typeFilter:hover {
+#type-filter:hover {
   background-color: red;
   color: black;
 }
 
-#typeFilter option {
+#type-filter option {
   background-color: black;
   color: white;
 }
 
-#battleButton {
+#battle-button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
@@ -104,7 +165,7 @@ footer {
   transition: background 0.3s;
 }
 
-#battleButton:hover {
+#battle-button:hover {
   background-color: #d32f2f;
 }
 
