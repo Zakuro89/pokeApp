@@ -1,0 +1,130 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #ff3e3e;
+  color: white;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+
+#battle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+  background-color: #f8f9fa;
+  margin-top: 50px;
+}
+
+.choose-opponent-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #ff3e3e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #d32f2f;
+}
+
+.pokemon-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.pokemon-battle-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pokemon-battle-card img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pokemon-battle-card h2 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.battle-stats p {
+  font-size: 1.1em;
+  margin: 5px 0;
+}
+
+.pokemon-battle-card.left {
+  align-self: flex-start;
+}
+
+.pokemon-battle-card.right {
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .pokemon-cards-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pokemon-battle-card {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
