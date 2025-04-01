@@ -59,4 +59,4 @@ battleButton.addEventListener("click", () => {
   window.location.href = `pokemon-battle.html?pokemon1=${pokemonId}`;
 });
 
-fetchPokemonDetails();
+getPokemonDetails();
